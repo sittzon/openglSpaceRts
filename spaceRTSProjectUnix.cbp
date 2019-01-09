@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="spaceRTSProject" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/spaceRTSProject" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/spaceRTSProject" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DGL_GLEXT_PROTOTYPES" />
+			<Add directory="include" />
+		</Compiler>
+		<Linker>
+			<Add library="lib/freeglut.lib" />
+			<Add library="glut" />
+			<Add directory="lib" />
+		</Linker>
+		<Unit filename="code/Camera.cpp" />
+		<Unit filename="code/Camera.h" />
+		<Unit filename="code/Globals.cpp" />
+		<Unit filename="code/Globals.h" />
+		<Unit filename="code/InputHandler.cpp" />
+		<Unit filename="code/InputHandler.h" />
+		<Unit filename="code/Model.cpp" />
+		<Unit filename="code/Model.h" />
+		<Unit filename="code/ObjHandler.cpp" />
+		<Unit filename="code/ObjHandler.h" />
+		<Unit filename="code/ShaderManager.cpp" />
+		<Unit filename="code/ShaderManager.h" />
+		<Unit filename="code/TGALoader.cpp" />
+		<Unit filename="code/TGALoader.h" />
+		<Unit filename="code/VectorUtils.cpp" />
+		<Unit filename="code/VectorUtils.h" />
+		<Unit filename="code/loadImageData.cpp" />
+		<Unit filename="code/loadImageData.h" />
+		<Unit filename="code/main.cpp" />
+		<Unit filename="code/standardPhongShader.frag" />
+		<Unit filename="code/standardPhongShader.vert" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

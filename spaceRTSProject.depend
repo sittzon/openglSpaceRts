@@ -1,0 +1,905 @@
+# depslib dependency file v1.0
+1387552128 source:c:\my dropbox\programmering\c++\spacertsproject\code\inputhandler.cpp
+	"InputHandler.h"
+	"Globals.h"
+
+1353956758 c:\my dropbox\programmering\c++\spacertsproject\code\utils.h
+	<math.h>
+	"model.h"
+
+1387568292 c:\my dropbox\programmering\c++\spacertsproject\code\model.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<string>
+	<vector>
+	"VectorUtils.h"
+	"ObjHandler.h"
+
+1387568409 c:\my dropbox\programmering\c++\spacertsproject\code\objhandler.h
+	<iostream>
+	<vector>
+	<string>
+	"VectorUtils.h"
+	"Model.h"
+
+1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\freeglut_ext.h
+	<stdarg.h>
+
+1387575643 c:\my dropbox\programmering\c++\spacertsproject\code\vectorutils.h
+	<iostream>
+	<math.h>
+	"Model.h"
+
+1387551442 c:\my dropbox\programmering\c++\spacertsproject\code\inputhandler.h
+	<iostream>
+	<vector>
+	"VectorUtils.h"
+
+1387550946 c:\my dropbox\programmering\c++\spacertsproject\code\camera.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	"VectorUtils.h"
+
+1387569357 source:c:\my dropbox\programmering\c++\spacertsproject\code\objhandler.cpp
+	<sstream>
+	"ObjHandler.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1387550534 source:c:\my dropbox\programmering\c++\spacertsproject\code\shadermanager.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string.h>
+	"ShaderManager.h"
+
+1387550480 c:\my dropbox\programmering\c++\spacertsproject\code\shadermanager.h
+	<string>
+	<cstdlib>
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1353956758 source:c:\my dropbox\programmering\c++\spacertsproject\code\loadimagedata.cpp
+	"loadImageData.h"
+	<iostream>
+	<fstream>
+
+1353956758 c:\my dropbox\programmering\c++\spacertsproject\code\loadimagedata.h
+
+1387550974 source:c:\my dropbox\programmering\c++\spacertsproject\code\camera.cpp
+	"Camera.h"
+	"Globals.h"
+
+1387554713 source:c:\my dropbox\programmering\c++\spacertsproject\code\main.cpp
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<iostream>
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Globals.h"
+
+1387568191 c:\my dropbox\programmering\c++\spacertsproject\code\globals.h
+	<iostream>
+	<vector>
+	"Camera.h"
+	"ObjHandler.h"
+	"InputHandler.h"
+	"ShaderManager.h"
+	"Model.h"
+	"TGALoader.h"
+	"OculusManager.h"
+
+1387567976 source:c:\my dropbox\programmering\c++\spacertsproject\code\model.cpp
+	"Model.h"
+	"TGALoader.h"
+
+1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\wglew.h
+	<windows.h>
+
+1353958058 source:c:\my dropbox\programmering\c++\spacertsproject\code\utils.cpp
+	<iostream>
+	<math.h>
+	"Utils.h"
+
+1387569137 source:c:\my dropbox\programmering\c++\spacertsproject\code\vectorutils.cpp
+	<math.h>
+	<iostream>
+	<iomanip>
+	"VectorUtils.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1387551344 source:c:\my dropbox\programmering\c++\spacertsproject\code\globals.cpp
+	"Globals.h"
+
+1347034348 c:\my dropbox\programmering\c++\spacertsproject\code\bmpreader.h
+	<string>
+
+1347034349 source:c:\my dropbox\programmering\c++\spacertsproject\code\bmpreader.cpp
+	<fstream>
+	<iostream>
+	"vectorUtils.h"
+	"bmpReader.h"
+
+1387549203 c:\my dropbox\programmering\c++\spacertsproject\code\tgaloader.h
+	<iostream>
+	<string.h>
+	<fstream>
+
+1387549202 source:c:\my dropbox\programmering\c++\spacertsproject\code\tgaloader.cpp
+	"TGALoader.h"
+
+1387554574 source:c:\dropbox\programmering\c++\spacertsproject\code\camera.cpp
+	"Camera.h"
+	"Globals.h"
+
+1387554546 c:\dropbox\programmering\c++\spacertsproject\code\camera.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	"VectorUtils.h"
+
+1350318352 c:\dropbox\programmering\c++\spacertsproject\include\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1350318352 c:\dropbox\programmering\c++\spacertsproject\include\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1350318352 c:\dropbox\programmering\c++\spacertsproject\include\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1350318352 c:\dropbox\programmering\c++\spacertsproject\include\freeglut_ext.h
+	<stdarg.h>
+
+1387579284 c:\dropbox\programmering\c++\spacertsproject\code\vectorutils.h
+	<iostream>
+	<math.h>
+	"Model.h"
+
+1387571892 c:\dropbox\programmering\c++\spacertsproject\code\model.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<string>
+	<vector>
+	"VectorUtils.h"
+	"ObjHandler.h"
+
+1387572009 c:\dropbox\programmering\c++\spacertsproject\code\objhandler.h
+	<iostream>
+	<vector>
+	<string>
+	"VectorUtils.h"
+	"Model.h"
+
+1387552803 c:\dropbox\programmering\c++\spacertsproject\code\tgaloader.h
+	<iostream>
+	<string.h>
+	<fstream>
+
+1387571791 c:\dropbox\programmering\c++\spacertsproject\code\globals.h
+	<iostream>
+	<vector>
+	"Camera.h"
+	"ObjHandler.h"
+	"InputHandler.h"
+	"ShaderManager.h"
+	"Model.h"
+	"TGALoader.h"
+	"OculusManager.h"
+
+1387555042 c:\dropbox\programmering\c++\spacertsproject\code\inputhandler.h
+	<iostream>
+	<vector>
+	"VectorUtils.h"
+
+1387554080 c:\dropbox\programmering\c++\spacertsproject\code\shadermanager.h
+	<string>
+	<cstdlib>
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1387554944 source:c:\dropbox\programmering\c++\spacertsproject\code\globals.cpp
+	"Globals.h"
+
+1387555728 source:c:\dropbox\programmering\c++\spacertsproject\code\inputhandler.cpp
+	"InputHandler.h"
+	"Globals.h"
+
+1387571576 source:c:\dropbox\programmering\c++\spacertsproject\code\model.cpp
+	"Model.h"
+	"TGALoader.h"
+
+1387572957 source:c:\dropbox\programmering\c++\spacertsproject\code\objhandler.cpp
+	<sstream>
+	"ObjHandler.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1387554134 source:c:\dropbox\programmering\c++\spacertsproject\code\shadermanager.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string.h>
+	"ShaderManager.h"
+
+1387552802 source:c:\dropbox\programmering\c++\spacertsproject\code\tgaloader.cpp
+	"TGALoader.h"
+
+1354311336 source:c:\dropbox\programmering\c++\spacertsproject\code\vectorutils.cpp
+	<math.h>
+	<iostream>
+	<iomanip>
+	"VectorUtils.h"
+
+1353960358 source:c:\dropbox\programmering\c++\spacertsproject\code\loadimagedata.cpp
+	"loadImageData.h"
+	<iostream>
+	<fstream>
+
+1353960358 c:\dropbox\programmering\c++\spacertsproject\code\loadimagedata.h
+
+1387558313 source:c:\dropbox\programmering\c++\spacertsproject\code\main.cpp
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<iostream>
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Globals.h"
+
+1354289958 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\camera.cpp
+	"Camera.h"
+	"Globals.h"
+
+1354218192 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\camera.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	"VectorUtils.h"
+
+1350314752 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\include\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1350314752 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\include\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1350314752 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\include\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1350314752 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\include\freeglut_ext.h
+	<stdarg.h>
+
+1358434810 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\vectorutils.h
+	<iostream>
+	<math.h>
+	"Model.h"
+
+1358280886 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\model.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<string>
+	<vector>
+	"VectorUtils.h"
+	"ObjHandler.h"
+
+1358332008 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\objhandler.h
+	<iostream>
+	<vector>
+	<string>
+	"Model.h"
+	"vectorUtils.h"
+	"TGALoader.h"
+
+1354045440 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\tgaloader.h
+	<iostream>
+	<string.h>
+	<fstream>
+
+1358273813 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\globals.h
+	<iostream>
+	<vector>
+	"Camera.h"
+	"ObjHandler.h"
+	"InputHandler.h"
+	"ShaderManager.h"
+	"Model.h"
+	"TGALoader.h"
+
+1354219300 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\inputhandler.h
+	<iostream>
+	<vector>
+	"VectorUtils.h"
+
+1352135405 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\shadermanager.h
+	<string>
+	<cstdlib>
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1358274036 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\globals.cpp
+	"Globals.h"
+
+1358434833 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\inputhandler.cpp
+	"InputHandler.h"
+	"Globals.h"
+
+1353956758 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\loadimagedata.cpp
+	"loadImageData.h"
+	<iostream>
+	<fstream>
+
+1353956758 c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\loadimagedata.h
+
+1358434860 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\main.cpp
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<iostream>
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Globals.h"
+
+1358280894 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\model.cpp
+	"Model.h"
+
+1354225030 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\shadermanager.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string.h>
+	"ShaderManager.h"
+
+1358331943 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\tgaloader.cpp
+	"TGALoader.h"
+
+1358324597 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\vectorutils.cpp
+	<math.h>
+	<iostream>
+	<iomanip>
+	"VectorUtils.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1358332071 source:c:\users\magnuss\dropbox\programmering\c++\spacertsproject\code\objhandler.cpp
+	"ObjHandler.h"
+	<sstream>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\include\ovr.h
+	"../Src/Kernel/OVR_Allocator.h"
+	"../Src/Kernel/OVR_Log.h"
+	"../Src/Kernel/OVR_Math.h"
+	"../Src/Kernel/OVR_System.h"
+	"../Src/Kernel/OVR_Types.h"
+	"../Src/OVR_Device.h"
+	"../Src/OVR_DeviceConstants.h"
+	"../Src/OVR_DeviceHandle.h"
+	"../Src/OVR_DeviceMessages.h"
+	"../Src/OVR_SensorFusion.h"
+	"../Src/OVR_Profile.h"
+	"../Src/Util/Util_LatencyTest.h"
+	"../Src/Util/Util_Render_Stereo.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_allocator.h
+	"OVR_Types.h"
+	<new>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_types.h
+	<stddef.h>
+	<limits.h>
+	<float.h>
+	<stdlib.h>
+	<crtdbg.h>
+	<sys/types.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_log.h
+	"OVR_Types.h"
+	<stdarg.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_math.h
+	<assert.h>
+	<stdlib.h>
+	<math.h>
+	"OVR_Types.h"
+	"OVR_RefCount.h"
+	"OVR_Std.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_refcount.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+
+1384449027 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_std.h
+	"OVR_Types.h"
+	<stdarg.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<errno.h>
+	<wchar.h>
+	<wctype.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_system.h
+	"OVR_Allocator.h"
+	"OVR_Log.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_device.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"OVR_DeviceMessages.h"
+	"OVR_HIDDeviceBase.h"
+	"Kernel/OVR_Atomic.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_String.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_deviceconstants.h
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_devicehandle.h
+	"OVR_DeviceConstants.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_devicemessages.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"Kernel/OVR_Math.h"
+	"Kernel/OVR_Array.h"
+	"Kernel/OVR_Color.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_array.h
+	"OVR_ContainerAllocator.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_containerallocator.h
+	"OVR_Allocator.h"
+	<string.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_color.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_hiddevicebase.h
+	"Kernel/OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_atomic.h
+	"OVR_Types.h"
+	<windows.h>
+	<pthread.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_string.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+	"OVR_UTF8Util.h"
+	"OVR_Atomic.h"
+	"OVR_Std.h"
+	"OVR_Alg.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_utf8util.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_alg.h
+	"OVR_Types.h"
+	<string.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_sensorfusion.h
+	"OVR_Device.h"
+	"OVR_SensorFilter.h"
+	<time.h>
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_sensorfilter.h
+	"Kernel/OVR_Math.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\ovr_profile.h
+	"Kernel/OVR_String.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_Array.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\util\util_latencytest.h
+	"../OVR_Device.h"
+	"../Kernel/OVR_String.h"
+	"../Kernel/OVR_List.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\kernel\ovr_list.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\src\util\util_render_stereo.h
+	"../OVR_Device.h"
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\include\ovrversion.h
+
+1381429862 c:\my dropbox\programmering\c++\spacertsproject\include\util_render_stereo.h
+	"../OVR_Device.h"
+
+1387223339 source:c:\my dropbox\programmering\c++\spacertsproject\code\oculusmanager.cpp
+	"OculusManager.h"
+
+1387223305 c:\my dropbox\programmering\c++\spacertsproject\code\oculusmanager.h
+	<iostream>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\include\ovr.h
+	"../Src/Kernel/OVR_Allocator.h"
+	"../Src/Kernel/OVR_Log.h"
+	"../Src/Kernel/OVR_Math.h"
+	"../Src/Kernel/OVR_System.h"
+	"../Src/Kernel/OVR_Types.h"
+	"../Src/OVR_Device.h"
+	"../Src/OVR_DeviceConstants.h"
+	"../Src/OVR_DeviceHandle.h"
+	"../Src/OVR_DeviceMessages.h"
+	"../Src/OVR_SensorFusion.h"
+	"../Src/OVR_Profile.h"
+	"../Src/Util/Util_LatencyTest.h"
+	"../Src/Util/Util_Render_Stereo.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_allocator.h
+	"OVR_Types.h"
+	<new>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_types.h
+	<stddef.h>
+	<limits.h>
+	<float.h>
+	<stdlib.h>
+	<crtdbg.h>
+	<sys/types.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_log.h
+	"OVR_Types.h"
+	<stdarg.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_math.h
+	<assert.h>
+	<stdlib.h>
+	<math.h>
+	"OVR_Types.h"
+	"OVR_RefCount.h"
+	"OVR_Std.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_refcount.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_std.h
+	"OVR_Types.h"
+	<stdarg.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<errno.h>
+	<wchar.h>
+	<wctype.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_system.h
+	"OVR_Allocator.h"
+	"OVR_Log.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_device.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"OVR_DeviceMessages.h"
+	"OVR_HIDDeviceBase.h"
+	"Kernel/OVR_Atomic.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_String.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_deviceconstants.h
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_devicehandle.h
+	"OVR_DeviceConstants.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_devicemessages.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"Kernel/OVR_Math.h"
+	"Kernel/OVR_Array.h"
+	"Kernel/OVR_Color.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_array.h
+	"OVR_ContainerAllocator.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_containerallocator.h
+	"OVR_Allocator.h"
+	<string.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_color.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_hiddevicebase.h
+	"Kernel/OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_atomic.h
+	"OVR_Types.h"
+	<windows.h>
+	<pthread.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_string.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+	"OVR_UTF8Util.h"
+	"OVR_Atomic.h"
+	"OVR_Std.h"
+	"OVR_Alg.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_utf8util.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_alg.h
+	"OVR_Types.h"
+	<string.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_sensorfusion.h
+	"OVR_Device.h"
+	"OVR_SensorFilter.h"
+	<time.h>
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_sensorfilter.h
+	"Kernel/OVR_Math.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\ovr_profile.h
+	"Kernel/OVR_String.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_Array.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\util\util_latencytest.h
+	"../OVR_Device.h"
+	"../Kernel/OVR_String.h"
+	"../Kernel/OVR_List.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\kernel\ovr_list.h
+	"OVR_Types.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\src\util\util_render_stereo.h
+	"../OVR_Device.h"
+
+1381429862 c:\my dropbox\programmering\oculussdk\libovr\include\ovrversion.h
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\include\ovr.h
+	"../Src/Kernel/OVR_Allocator.h"
+	"../Src/Kernel/OVR_Log.h"
+	"../Src/Kernel/OVR_Math.h"
+	"../Src/Kernel/OVR_System.h"
+	"../Src/Kernel/OVR_Types.h"
+	"../Src/OVR_Device.h"
+	"../Src/OVR_DeviceConstants.h"
+	"../Src/OVR_DeviceHandle.h"
+	"../Src/OVR_DeviceMessages.h"
+	"../Src/OVR_SensorFusion.h"
+	"../Src/OVR_Profile.h"
+	"../Src/Util/Util_LatencyTest.h"
+	"../Src/Util/Util_Render_Stereo.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_allocator.h
+	"OVR_Types.h"
+	<new>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_types.h
+	<stddef.h>
+	<limits.h>
+	<float.h>
+	<stdlib.h>
+	<crtdbg.h>
+	<sys/types.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_log.h
+	"OVR_Types.h"
+	<stdarg.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_math.h
+	<assert.h>
+	<stdlib.h>
+	<math.h>
+	"OVR_Types.h"
+	"OVR_RefCount.h"
+	"OVR_Std.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_refcount.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_std.h
+	"OVR_Types.h"
+	<stdarg.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<errno.h>
+	<wchar.h>
+	<wctype.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_system.h
+	"OVR_Allocator.h"
+	"OVR_Log.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_device.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"OVR_DeviceMessages.h"
+	"OVR_HIDDeviceBase.h"
+	"Kernel/OVR_Atomic.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_String.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_deviceconstants.h
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_devicehandle.h
+	"OVR_DeviceConstants.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_devicemessages.h
+	"OVR_DeviceConstants.h"
+	"OVR_DeviceHandle.h"
+	"Kernel/OVR_Math.h"
+	"Kernel/OVR_Array.h"
+	"Kernel/OVR_Color.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_array.h
+	"OVR_ContainerAllocator.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_containerallocator.h
+	"OVR_Allocator.h"
+	<string.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_color.h
+	"OVR_Types.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_hiddevicebase.h
+	"Kernel/OVR_Types.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_atomic.h
+	"OVR_Types.h"
+	<windows.h>
+	<pthread.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_string.h
+	"OVR_Types.h"
+	"OVR_Allocator.h"
+	"OVR_UTF8Util.h"
+	"OVR_Atomic.h"
+	"OVR_Std.h"
+	"OVR_Alg.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_utf8util.h
+	"OVR_Types.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_alg.h
+	"OVR_Types.h"
+	<string.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_sensorfusion.h
+	"OVR_Device.h"
+	"OVR_SensorFilter.h"
+	<time.h>
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_sensorfilter.h
+	"Kernel/OVR_Math.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\ovr_profile.h
+	"Kernel/OVR_String.h"
+	"Kernel/OVR_RefCount.h"
+	"Kernel/OVR_Array.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\util\util_latencytest.h
+	"../OVR_Device.h"
+	"../Kernel/OVR_String.h"
+	"../Kernel/OVR_List.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\kernel\ovr_list.h
+	"OVR_Types.h"
+
+1386089390 c:\my dropbox\programmering\oculussdk_0.2.5.c\libovr\src\util\util_render_stereo.h
+	"../OVR_Device.h"
+
+1387550798 source:c:\my dropbox\programmering\c++\spacertsproject\code\inithandler.cpp
+	"InitHandler.h"
+	"VectorUtils.h"
+
+1387224863 c:\my dropbox\programmering\c++\spacertsproject\code\inithandler.h
+	"Globals.h"
+
+1387226905 c:\dropbox\programmering\c++\spacertsproject\code\oculusmanager.h
+	<iostream>
+
+1387554398 source:c:\dropbox\programmering\c++\spacertsproject\code\inithandler.cpp
+	"InitHandler.h"
+	"VectorUtils.h"
+
+1387228463 c:\dropbox\programmering\c++\spacertsproject\code\inithandler.h
+	"Globals.h"
+
+1387226939 source:c:\dropbox\programmering\c++\spacertsproject\code\oculusmanager.cpp
+	"OculusManager.h"
+
