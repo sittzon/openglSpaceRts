@@ -294,7 +294,7 @@ namespace VectorUtils
     {
     //    static bool textureLoaded = false;
         static ObjHandler* OH = new ObjHandler();
-        static Model* BB = OH->loadObj("./models/billboard.obj", false, rgbMode);
+        static Model* BB = OH->loadObj("../../models/billboard.obj", false, rgbMode);
 
         //Load and bind texture
         unsigned int width, height;
@@ -374,17 +374,17 @@ Mat::~Mat()
 
 Mat Mat::operator*(const Mat &m2)
 {
-    Mat* out = new Mat();
+    Mat out;
     for(int r = 0; r < 4; r++)
     {
         for(int c = 0; c < 4; c++)
         {
-            out->m[4*r + c] =   m[4*r]   * m2.m[c]   + m[4*r+1] * m2.m[c+4] +
+            out.m[4*r + c] =   m[4*r]   * m2.m[c]   + m[4*r+1] * m2.m[c+4] +
                                 m[4*r+2] * m2.m[c+8] + m[4*r+3] * m2.m[c+12];
         }
     }
 
-	return *out;
+	return out;
 }
 
 void Mat::operator*=(const Mat &m2)
@@ -408,10 +408,9 @@ void Mat::operator*=(const Mat &m2)
 }
 
 
-Point Mat::operator*(const Point& pt)
+Point Mat::operator*(const Point &pt)
 {
     Point out = Point(0.0f, 0.0f, 0.0f, 0.0f);
-    pt[0];
 
     out[0] = m[ 0]*pt[0] + m[ 1]*pt[1] + m[ 2]*pt[2] + m[ 3]*pt[3];
     out[1] = m[ 4]*pt[0] + m[ 5]*pt[1] + m[ 6]*pt[2] + m[ 7]*pt[3];
@@ -434,7 +433,7 @@ Point Mat::operator*(const Point *pt)
 	return out;
 }
 */
-float& Mat::operator[](int n)
+float& Mat::operator[](int n) const
 {
     return m[n];
 }
@@ -898,7 +897,7 @@ Point& Point::operator=(const Point &p2)
     return *this;
 }
 
-float& Point::operator[](int n)
+float& Point::operator[](int n) const
 {
     return coord[n];
 }
@@ -1021,7 +1020,7 @@ float Point::dotProduct(const Point a)
 
     return out;
 }
-/*
+
 Point Point::crossProduct(const Point a, const Point b)
 {
     Point tempPoint = Point(3);
@@ -1030,7 +1029,7 @@ Point Point::crossProduct(const Point a, const Point b)
     tempPoint.coord[2] = a.coord[0]*b.coord[1] - a.coord[1]*b.coord[0];
     return tempPoint;
 }
-*/
+
 Point Point::crossProduct(const Point a)
 {
     Point tempPoint = Point(3);
@@ -1078,8 +1077,8 @@ void Point::normalize()
     coord[2] = coord[2]/divider;
 }
 
-/*
-Point Point::negate(Point a)
+
+Point Point::negate(const Point a)
 {
     a.coord[0] = -a.coord[0];
     a.coord[1] = -a.coord[1];
@@ -1093,7 +1092,7 @@ void Point::negate()
     coord[1] = -coord[1];
     coord[2] = -coord[2];
 }
-*/
+
  void Point::switchElements(int e1, int e2)
  {
      float temp = coord[e1];
@@ -1120,12 +1119,5 @@ Mat Point::matMult(const Point &a)
 
      return res;
 }
-/*
-void Point::addToDrawnPoints()
-{
-    drawing = true;
-    //getGlobal()->DPH->addPoint(this);
-    return;
-}
-*/
+
 #endif

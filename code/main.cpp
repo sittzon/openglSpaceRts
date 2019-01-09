@@ -23,6 +23,7 @@
 #include <time.h>
 
 #include "Globals.h"
+#include "InitHandler.h"
 
 using namespace std;
 using namespace VectorUtils;
@@ -40,39 +41,30 @@ void init()
 	//cout << "OpenGL extensions: " << glGetString(GL_EXTENSIONS) << endl;
 
     //Load shaders
-    standardShaderProgram = ShaderManager::loadShaders("./code/standardPhongShader.vert", "./code/standardPhongShader.frag");
+    standardShaderProgram = ShaderManager::loadShaders("../../code/standardPhongShader.vert", "../../code/standardPhongShader.frag");
     glUseProgram(standardShaderProgram);
 
     //Create FBO
 //    FBOTextureArray = new unsigned char[WINDOWSIZEX*WINDOWSIZEY*4];
 //    createFBO(WINDOWSIZEX, WINDOWSIZEY, GL_RGBA, FBOTextureArray, &FBOID, &FBOTexID);
 
-    //Load cubemap + background
-    bkgModel = OH->loadObj("./models/cubeMapModel.obj");
-    bkgModel->modelMatrix->makeScale(1000.0);
-    bkgModel->modelMatrix->rotateX(PI/2.0);
-    bkgModel->selectable = false;
-
-    //Load models
-    models.push_back(OH->loadObj("./models/MotherShip.obj"));
-    models.push_back(OH->loadObj("./models/Fighter.obj"));
-    models.push_back(OH->loadObj("./models/Asteroid_1.obj", true, GL_RGBA, Point(0.05, 0.6, 0.1, 200.0)));
-    models.push_back(OH->loadObj("./models/SpaceStation_1.obj", true, GL_RGB, Point(0.00, 0.4, 0.9, 10.0)));
+    InitHandler initHandler;
+    initHandler.SetupBkg();
+    initHandler.SetupModels();
 
     //Set initial matrices and upload
     buildPerspProjMat(cam->projectionMatrix.m, 60.0f, (float)WINDOWSIZEX/WINDOWSIZEY, 0.1f, 10000.0f);
     glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "projection"), 1, GL_TRUE, cam->projectionMatrix.m);
 
     //Initial pos for models
-
-    models[1]->modelMatrix->rotateZ(PI);
-    models[1]->modelMatrix->rotateX(PI/2.0);
+//    models[1]->modelMatrix->rotateZ(PI);
+//    models[1]->modelMatrix->rotateX(PI/2.0);
     models[1]->modelMatrix->addTranslate(Point(-3.0, 0.0, 0.0));
     models[2]->modelMatrix->addTranslate(Point(3.0, 2.0, .0));
-    models[2]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[1]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[0]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[3]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
+    models[0]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+    models[1]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+    models[2]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+    models[3]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
 //    models[3]->modelMatrix->addTranslate(Point(5.0, -2.0, .0));
 //    models[3]->modelMatrix->rotateZ(PI/2.0);
 //    models[3]->modelMatrix->rotateZ(cam->angleHorizontal);
@@ -114,7 +106,7 @@ void drawBufferObjects()
             if(IH->getSelectedModels()[n] == (int)i) //If model is selected
             {
                 Point move(models[i]->modelMatrix->m[3], models[i]->modelMatrix->m[7], models[i]->modelMatrix->m[11]);
-                drawIcon("./img/target.tga", GL_RGBA, move);
+                drawIcon("../../img/target.tga", GL_RGBA, move);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 break;
             }

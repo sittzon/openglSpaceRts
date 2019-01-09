@@ -1,35 +1,53 @@
 #include "InitHandler.h"
 #include "VectorUtils.h"
+#include <sstream>
 
 using namespace VectorUtils;
 using namespace Globals;
 
 InitHandler::InitHandler()
 {
-    allModelNames.push_back("./models/MotherShip.obj");
-    allModelNames.push_back("./models/Fighter.obj");
-    allModelNames.push_back("./models/Asteroid_1.obj");
-    allModelNames.push_back("./models/SpaceStation_1.obj");
+    loadLevel("../../levels/1.ini");
 }
 
 InitHandler::~InitHandler()
 {
-    //dtor
 }
 
-void InitHandler::SetupModelAndTextures()
+void InitHandler::SetupBkg()
 {
     //Load cubemap + background
-    bkgModel = OH->loadObj("./models/cubeMapModel.obj");
-    bkgModel->modelMatrix->makeScale(1000.0);
-    bkgModel->modelMatrix->rotateX(PI/2.0);
+    bkgModel = OH->loadObj(currentLevel["bkgobj"]);
+    bkgModel->modelMatrix->makeScale(atof(currentLevel["bkgscale"].c_str()));
+    bkgModel->modelMatrix->rotateX(PI*atof(currentLevel["bkgrotx"].c_str()));
+    bkgModel->selectable = false;//currentLevel["bkgselectable"];
+}
+
+void InitHandler::SetupModels()
+{
+    models.push_back(OH->loadObj(currentLevel["model1name"]));
+    models.push_back(OH->loadObj(currentLevel["model2name"]));
+    models.push_back(OH->loadObj(currentLevel["model3name"], true, GL_RGBA, Point(0.05, 0.6, 0.1, 200.0)));
+    models.push_back(OH->loadObj(currentLevel["model4name"], true, GL_RGB, Point(0.00, 0.4, 0.9, 10.0)));
 
     //Load all models
-    vector<string>::iterator it = allModelNames.begin();
-    for (; it != allModelNames.end(); it++)
+    string currentModelString;
+    for (int i = 0; i < models.size(); ++i)
     {
-        //Load model
-        models.push_back(OH->loadObj(*it));
+        currentModelString = static_cast<ostringstream*>( &(ostringstream() << i+1) )->str();
+        cout << currentModelString << endl;
+        std::map<string, string>::iterator it = currentLevel.find("model" + currentModelString + "rotx");
+        if (it != currentLevel.end()) {
+            models[i]->modelMatrix->rotateX(PI*atof(it->second.c_str()));
+        }
+        it = currentLevel.find("model" + currentModelString + "roty");
+        if (it != currentLevel.end()) {
+            models[i]->modelMatrix->rotateY(PI*atof(it->second.c_str()));
+        }
+        it = currentLevel.find("model" + currentModelString + "rotz");
+        if (it != currentLevel.end()) {
+            models[i]->modelMatrix->rotateZ(PI*atof(it->second.c_str()));
+        }
 
         //Load bumpmap if it exist
         //models[2]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
@@ -45,14 +63,34 @@ void InitHandler::SetupModelAndTextures()
 //    glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "projection"), 1, GL_TRUE, projMatrix.m);
 
     //Initial pos for models
-    models[1]->modelMatrix->rotateZ(PI);
-    models[1]->modelMatrix->rotateX(PI/2.0);
-    models[1]->modelMatrix->addTranslate(Point(-3.0, 0.0, 0.0));
-    models[2]->modelMatrix->addTranslate(Point(3.0, 2.0, .0));
+//    models[1]->modelMatrix->rotateZ(PI);
+//    models[1]->modelMatrix->rotateX(PI/2.0);
+//    models[1]->modelMatrix->addTranslate(Point(-3.0, 0.0, 0.0));
+//    models[2]->modelMatrix->addTranslate(Point(3.0, 2.0, .0));
+//
+//    models[2]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+//    models[1]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+//    models[0]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+//    models[3]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
+}
 
-    models[2]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[1]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[0]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
-    models[3]->loadBumpMap("./models/Asteroid_1_bump.tga", GL_RGBA);
+
+void InitHandler::loadLevel(string levelFileName)
+{
+    ifstream file(levelFileName.c_str());
+	string tempLine = "";
+	string delimiter = "=";
+    if (file.is_open())
+    {
+	    while(file.good())
+        {
+	        getline(file, tempLine);
+	        string key = tempLine.substr(0, tempLine.find(delimiter));
+	        tempLine.erase(0, tempLine.find(delimiter) + 1);
+	        string value = tempLine;
+	        currentLevel.insert(pair<string, string>(key, value));
+        }
+    }
+    file.close();
 
 }

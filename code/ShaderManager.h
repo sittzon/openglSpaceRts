@@ -35,20 +35,12 @@ class ShaderManager
 		ShaderManager(void);
 		~ShaderManager(void);
 
-		static GLuint loadShaders(const string vert, const string frag);	                    //Returns a program handle for vertex and fragment shader
-		static GLuint loadShaders(const string vert,  const string geom, const string frag);   //Returns a program handle for vertex, geometry and fragment shader
+		static GLuint loadShaders(const string vert, const string frag, const string geom = "");	//Returns a program handle for vertex, fragment and optional geometry shader
 
 	private:
-		static void printShaderInfoLog(GLuint object);						                    //Prints shader info log
+		static void printShaderInfoLog(GLuint object);						                //Prints shader info log
 		static void printProgramInfoLog(GLuint object);					                    //Prints program info log
         static GLchar* readFile(const string filename);					                    //Returns a char pointer of a file from disk
-
-/*
-		GLuint vs;		//Vertex Shader
-		GLuint gs;		//Geometry Shader
-		GLuint fs;		//Fragment Shader
-		GLuint program; //Shader Program
-*/
 };
 
 #endif

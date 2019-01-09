@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\spaceRTSProject" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/spaceRTSProject" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -16,8 +16,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\spaceRTSProject" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="bin/Release/spaceRTSProject" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -28,8 +28,6 @@
 		<Compiler>
 			<Add option="-DGL_GLEXT_PROTOTYPES" />
 			<Add directory="include" />
-			<Add directory="..\..\OculusSDK_0.2.5.c\LibOVR\Include" />
-			<Add directory="..\..\OculusSDK_0.2.5.c\LibOVR\Src" />
 		</Compiler>
 		<Linker>
 			<Add option="-v" />
@@ -37,37 +35,36 @@
 			<Add library="libglew32.a" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
-			<Add library="..\..\OculusSDK_0.2.5.c\LibOVR\Lib\Win32\libovr.lib" />
 			<Add directory="lib" />
-			<Add directory="..\..\OculusSDK_0.2.5.c\LibOVR\Lib\Win32" />
-			<Add directory="..\..\OculusSDK_0.2.5.c\LibOVR\Lib\x64" />
+			<Add directory="../../OculusSDK_0.2.5.c/LibOVR/Lib/Win32" />
+			<Add directory="../../OculusSDK_0.2.5.c/LibOVR/Lib/x64" />
 		</Linker>
-		<Unit filename="code\Camera.cpp" />
-		<Unit filename="code\Camera.h" />
-		<Unit filename="code\Globals.cpp" />
-		<Unit filename="code\Globals.h" />
-		<Unit filename="code\InitHandler.cpp" />
-		<Unit filename="code\InitHandler.h" />
-		<Unit filename="code\InputHandler.cpp" />
-		<Unit filename="code\InputHandler.h" />
-		<Unit filename="code\Model.cpp" />
-		<Unit filename="code\Model.h" />
-		<Unit filename="code\ObjHandler.cpp" />
-		<Unit filename="code\ObjHandler.h" />
-		<Unit filename="code\OculusManager.cpp" />
-		<Unit filename="code\OculusManager.h" />
-		<Unit filename="code\ShaderManager.cpp" />
-		<Unit filename="code\ShaderManager.h" />
-		<Unit filename="code\TGALoader.cpp" />
-		<Unit filename="code\TGALoader.h" />
-		<Unit filename="code\VectorUtils.cpp" />
-		<Unit filename="code\VectorUtils.h" />
-		<Unit filename="code\bumpMapShader.frag" />
-		<Unit filename="code\loadImageData.cpp" />
-		<Unit filename="code\loadImageData.h" />
-		<Unit filename="code\main.cpp" />
-		<Unit filename="code\standardPhongShader.frag" />
-		<Unit filename="code\standardPhongShader.vert" />
+		<Unit filename="code/Camera.cpp" />
+		<Unit filename="code/Camera.h" />
+		<Unit filename="code/Globals.cpp" />
+		<Unit filename="code/Globals.h" />
+		<Unit filename="code/InitHandler.cpp" />
+		<Unit filename="code/InitHandler.h" />
+		<Unit filename="code/InputHandler.cpp" />
+		<Unit filename="code/InputHandler.h" />
+		<Unit filename="code/Model.cpp" />
+		<Unit filename="code/Model.h" />
+		<Unit filename="code/ObjHandler.cpp" />
+		<Unit filename="code/ObjHandler.h" />
+		<Unit filename="code/OculusManager.cpp" />
+		<Unit filename="code/OculusManager.h" />
+		<Unit filename="code/ShaderManager.cpp" />
+		<Unit filename="code/ShaderManager.h" />
+		<Unit filename="code/TGALoader.cpp" />
+		<Unit filename="code/TGALoader.h" />
+		<Unit filename="code/VectorUtils.cpp" />
+		<Unit filename="code/VectorUtils.h" />
+		<Unit filename="code/bumpMapShader.frag" />
+		<Unit filename="code/loadImageData.cpp" />
+		<Unit filename="code/loadImageData.h" />
+		<Unit filename="code/main.cpp" />
+		<Unit filename="code/standardPhongShader.frag" />
+		<Unit filename="code/standardPhongShader.vert" />
 		<Extensions>
 			<code_completion />
 			<debugger />

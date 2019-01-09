@@ -116,7 +116,8 @@ Model* ObjHandler::loadObj(const string filename, const bool useTexture, const G
         else    //Load default checkboard pattern texture
         {
             cout << "Texture not found: " << textureFileName << endl;
-            m->texture = TGALoader::loadImage("./models/Checkerboard_Pattern.tga", &width, &height);
+            m->texture = TGALoader::loadImage("../../models/Checkerboard_Pattern.tga", &width, &height);
+            cout << "Loaded Checkerboard_Pattern.tga" << endl;
         }
     }
 
@@ -137,6 +138,11 @@ Model* ObjHandler::loadObj(const string filename, const bool useTexture, const G
 	glGenBuffers(1, &m->vboVertex);
 	glGenBuffers(1, &m->vboNormal);
 	glGenBuffers(1, &m->vboTexture);
+
+    //GL error check
+    glErr = glGetError();
+    if(glErr != 0)
+        cout << "OBJHandler GL error 2: " << glErr << endl;
     if(useTexture)
     {
         glActiveTexture(GL_TEXTURE0);
