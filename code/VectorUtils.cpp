@@ -10,338 +10,17 @@
 #include "TGALoader.h"
 
 using namespace Globals;
-
 using namespace std;
 
-namespace VectorUtils
+ostream& operator<<(ostream& o, const Face &f)
 {
-    //Generate projection/camera matrix
-    void buildPerspProjMat(float *m, float fov, float aspect, float znear, float zfar)
+    o << "[" << setw(5) << f.vertPos[0];
+    for (int i = 1; i < 9; ++i)
     {
-      float xymax = znear * tan(fov * PI/360.0f);
-      float ymin = -xymax;
-      float xmin = -xymax;
-
-      float width = xymax - xmin;
-      float height = xymax - ymin;
-
-      float depth = zfar - znear;
-      float C = -(zfar + znear) / depth;
-      float D = -2 * (zfar * znear) / depth;
-
-      float w = 2 * znear / width;
-      w = w / aspect;
-      float h = 2 * znear / height;
-
-      m[0]  = w; m[1]  = 0; m[2]  = 0;  m[3]  = 0;
-      m[4]  = 0; m[5]  = h; m[6]  = 0; m[7]  = 0;
-      m[8]  = 0; m[9]  = 0; m[10] = C; m[11] = D;
-      m[12] = 0; m[13] = 0; m[14] = -1; m[15] = 0;
+        o << " " << setw(5) << f.vertPos[i];
     }
-
-    //Generate 4x4 lookAt matrix
-    void cameraLookAt(float px, float py, float pz,
-        float lx, float ly, float lz,
-        float vx, float vy, float vz,
-        float *m)
-    {
-        //Create n = p - l, normal vector
-        float nx = px - lx;
-        float ny = py - ly;
-        float nz = pz - lz;
-        //Normalize n
-        float divide = sqrt(nx*nx + ny*ny + nz*nz);
-        nx = nx/divide;
-        ny = ny/divide;
-        nz = nz/divide;
-
-        //Create u = crossproduct(v,n), right vector
-        float ux = vy*nz - vz*ny;
-        float uy = vz*nx - vx*nz;
-        float uz = vx*ny - vy*nx;
-        //Normalize u
-        divide = sqrt(ux*ux + uy*uy + uz*uz);
-        ux = ux/divide;
-        uy = uy/divide;
-        uz = uz/divide;
-
-        //Create v = crossproduct(n,u), up vector
-        vx = ny*uz - nz*uy;
-        vy = nz*ux - nx*uz;
-        vz = nx*uy - ny*ux;
-
-        //Create u*p
-        float up = ux*px + uy*py + uz*pz;
-        //Create v*p
-        float vp = vx*px + vy*py + vz*pz;
-        //Create n*p
-        float np = nx*px + ny*py + nz*pz;
-
-        m[0] = ux; m[1] = uy; m[2] = uz; m[3] = -up;
-        m[4] = vx; m[5] = vy; m[6] = vz; m[7] = -vp;
-        m[8] = nx; m[9] = ny; m[10] = nz; m[11] = -np;
-        m[12] = 0.0f; m[13] = 0.0f; m[14] = 0.0f; m[15] = 1.0f;
-    }
-
-    int checkMouseClickOnModel(int x, int y, Mat projMat, Mat worldMat, unsigned int winX, unsigned int winY, vector<Model*> mdls, vector<int>* selMdls)
-    {
-        bool found = false;
-        Face* currentFace;
-        //For all models
-        //--------------
-        for(unsigned int i = 0; i < mdls.size(); i++)
-        {
-            //If model is not supposed to be selectable
-            if (mdls[i]->selectable == false)
-                continue;
-
-            Mat currentModelMatrix = *(mdls[i]->modelMatrix);
-            Mat resultMatrix = projMat*worldMat*currentModelMatrix;
-
-            //For all faces
-            //-------------
-            vector<Face*>::iterator it = mdls[i]->faces.begin();
-            for (; it != mdls[i]->faces.end(); it++)
-            //for(unsigned int n = 0; n < mdls[i]->faces.size(); n++)
-            {
-                //Extract current vertices
-                //------------------------
-                //currentFace = mdls[i]->faces[n];
-                currentFace = *it;
-                float* modelVertices = currentFace->vertPos;
-
-                Point vert1(modelVertices[0], modelVertices[1], modelVertices[2]);    //x,y,z position
-                vert1[3] = 1.0;                               //Add h = 1.0, to be able to project
-                vert1.numel = 4;
-                Point vert2(modelVertices[3], modelVertices[4], modelVertices[5]);
-                vert2[3] = 1.0;
-                vert2.numel = 4;
-                Point vert3(modelVertices[6], modelVertices[7], modelVertices[8]);
-                vert3[3] = 1.0;
-                vert3.numel = 4;
-
-                //Project onto screen
-                //-------------------
-                Point Ah = resultMatrix*vert1;  //Projected vertex onto screen
-                Ah.normalize();                 //Homogeneous normalization
-                Ah.numel = 3;                   //Strip h part
-                Point Bh = resultMatrix*vert2;
-                Bh.normalize();
-                Bh.numel = 3;
-                Point Ch = resultMatrix*vert3;
-                Ch.normalize();
-                Ch.numel = 3;
-
-    //            float divider = Ah[2];
-    //            Ah*(1/divider);
-    //            divider = Bh[2];
-    //            Bh*(1/divider);
-    //            divider = Ch[2];
-    //            Ch*(1/divider);
-
-                float new_x = (Ah[0] * winX ) / (2.0 * Ah[2]) + winX/2;
-                float new_y = (Ah[1] * winY) / (2.0 * Ah[2]) + winY/2;
-                Point A = Point(new_x, new_y);
-
-                new_x = (Bh[0] * winX ) / (2.0 * Bh[2]) + winX/2;
-                new_y = (Bh[1] * winY) / (2.0 * Bh[2]) + winY/2;
-                Point B = Point(new_x, new_y);
-
-                new_x = (Ch[0] * winX ) / (2.0 * Ch[2]) + winX/2;
-                new_y = (Ch[1] * winY) / (2.0 * Ch[2]) + winY/2;
-                Point C = Point(new_x, new_y);
-
-    //            Point A = Point(Ah[0], Ah[1]);  //Normalized coordinates
-    //            Point B = Point(Bh[0], Bh[1]);
-    //            Point C = Point(Ch[0], Ch[1]);
-
-    //            A[0] = winX/2*A[0] + (winX/2);    //Pixel coordinates
-    //            A[1] = winY/2*A[1] + (winY/2);
-    //            B[0] = winX/2*B[0] + (winX/2);
-    //            B[1] = winY/2*B[1] + (winY/2);
-    //            C[0] = winX/2*C[0] + (winX/2);
-    //            C[1] = winY/2*C[1] + (winY/2);
-
-    //                cout << "A: " << A << " B: " << B << " C: " << C << endl;
-
-                float* Apixels = new float[2];
-                Apixels[0] = A[0];
-                Apixels[1] = A[1];
-    //            glDrawPixels(1, 1, GL_RED, GL_FLOAT, Apixels);
-    //            glFlush();
-                delete Apixels;
-
-                //Calculate if x,y is inside face, if true => break and return model
-                //------------------------------------------------------------------
-                //Compute vectors
-                Point v0 = B - A;
-                Point v1 = C - A;
-                Point v2 = Point(x,y) - A;
-
-                //Compute dot products
-                float dot00 = v0.dotProduct(v0);
-                float dot01 = v0.dotProduct(v1);
-                float dot02 = v0.dotProduct(v2);
-                float dot11 = v1.dotProduct(v1);
-                float dot12 = v1.dotProduct(v2);
-
-                //Compute barycentric coordinates
-                float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
-                float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
-                float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
-
-                //Check if point is in triangle
-                if((u >= 0.0) && (v >= 0.0) && (u + v < 1.0))
-                {
-    //                cout << "A: " << A << " B: " << B << " C: " << C << endl;
-                    cout << "Selected position " << Point(x,y) << endl;
-                    found = true;
-                    return i;
-                }
-
-            }
-        }
-        if(found == false)
-        {
-            selMdls->clear();
-            return (-1);
-        }
-        return 0;
-    }
-
-    int createFBO(unsigned int w, unsigned int h, unsigned int rgbMode, unsigned char* textureArray, unsigned int* fboId, unsigned int* texId)
-    {
-        //Generate and bind FBO
-        glGenFramebuffers(1, fboId);
-        glBindFramebuffer(GL_FRAMEBUFFER, *fboId);
-
-        //Create and attach texture to it
-        glGenTextures(1, texId);
-        glBindTexture(GL_TEXTURE_2D, *texId);
-        textureArray = new unsigned char[WINDOWSIZEX*WINDOWSIZEY*4];
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, rgbMode, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, textureArray);
-
-        GLuint glErr = glGetError();
-        if(glErr != 0)
-            cout << "GL texture creation error: " << glErr << endl;
-
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, *texId, 0);
-
-        //Detach FBO and texture
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-        //GL error check
-        glErr = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if(glErr != 0)
-        {
-            cout << "FBO creation error: " << glErr << endl << endl;
-            return 1;
-        }
-        else
-        {
-            cout << "FBO creation OK" << endl;
-        }
-        return 0;
-    }
-
-    //void loadBG(string inString)
-    //{
-    //    unsigned int width, height;
-    //    TGALoader* TGALoad = new TGALoader();
-    //    unsigned char* texture = TGALoad->loadImage(inString.c_str(), &width, &height);
-    //    models.push_back(OH->loadObj("./models/cubeMapModel.obj"));
-
-    //    unsigned int textureId;
-    //    glGenTextures(1, &textureId);
-    //
-    //    //NVidia
-    //    //-----------
-    //    GLubyte Face[6][64][64][3];
-    //    glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
-    //    for (int i = 0; i < 6; i++)
-    //    {
-    //        glTexParameteri(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i , GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    //
-    //        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-    //        0,                  //level
-    //        GL_RGB8,            //internal format
-    //        64,                 //width
-    //        64,                 //height
-    //        0,                  //border
-    //        GL_RGB,             //format
-    //        GL_UNSIGNED_BYTE,   //type
-    //        &Face[i][0][0][0]); // pixel data
-    //    }
-    //
-    //    //-----------
-    //	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
-    //	glTexParameteri(GL_TEXTURE_CUBE_MAP_POSITIVE_X, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    //	glTexParameteri(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, texture);
-
-    //    delete TGALoad;
-    //}
-
-    void drawIcon(string textureFileName, int rgbMode, Point inPoint)
-    {
-    //    static bool textureLoaded = false;
-        static ObjHandler* OH = new ObjHandler();
-        static Model* BB = OH->loadObj("../../models/billboard.obj", false, rgbMode);
-
-        //Load and bind texture
-        unsigned int width, height;
-    //    if (textureLoaded == false)
-    //    {
-            BB->texture = TGALoader::loadImage(textureFileName.c_str(), &width, &height);
-    //        textureLoaded = true;
-    //    }
-
-        if (BB->textureId == 0)
-        {
-            cout << BB->textureId << endl;
-            glGenTextures(1, &BB->textureId);
-            cout << BB->textureId << endl;
-        }
-        glBindTexture(GL_TEXTURE_2D, BB->textureId);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, rgbMode, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, BB->texture);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        //GL error check
-        GLuint glErr = glGetError();
-        if(glErr != 0)
-            cout << "GL error drawIcon: " << glErr << endl;
-
-        //Place in world, direction to camera
-        BB->modelMatrix->makeEye();
-        BB->modelMatrix->addScale(2.0);
-        BB->modelMatrix->rotateZ(PI/2.0);
-        BB->modelMatrix->rotateZ(cam->angleHorizontal);
-        BB->modelMatrix->rotateX(cam->angleVertical);
-        BB->modelMatrix->addTranslate(inPoint);
-        glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "modelToWorld"), 1, GL_TRUE, BB->modelMatrix->m);
-
-        //Draw billboard
-        glUniform1i(glGetUniformLocation(standardShaderProgram, "usePhong"), 0);
-        BB->draw();
-        glUniform1i(glGetUniformLocation(standardShaderProgram, "usePhong"), 1);
-
-        //Free memory
-    //    OH = NULL;
-    //    tga = NULL;
-    //    delete OH;
-    }
+    o << "]";
+    return o;
 }
 
 Mat::Mat()
@@ -359,6 +38,14 @@ Mat::Mat(const Mat &m2)
     for(int i = 0; i < 16; i++)
     {
         m[i] = m2.m[i];
+    }
+}
+Mat::Mat(float m2[16])
+{
+    m = new float[16];
+    for(int i = 0; i < 16; i++)
+    {
+        m[i] = m2[i];
     }
 }
 
@@ -638,22 +325,18 @@ Mat Mat::transpose()
 
 ostream& operator<<(ostream& o, const Mat& mat)
 {
-    o << endl << "[";
-
+//    o << endl << "[";
     for (int r = 0 ; r < 4 ; ++r)
     {
-        o << endl << "  [" << setw(5) << mat.m[r*4];
-
+        o << "[" << mat.m[r*4];
         for (int c = 1 ; c < 4 ; ++c)
         {
-            o << ", " << setw(5) << mat.m[r*4 + c];
+            o << " " << std::setprecision(2) << std::setw(4) << std::fixed << mat.m[r*4 + c];
         }
 
-        o << "]";
+        o << "]" << endl;
     }
-
-    o << endl << "]";
-
+//    o << endl << "]" << endl;
     return o;
 }
 
@@ -675,6 +358,43 @@ void Mat::switchRows(int r1, int r2)
     m[3 + 4*r2] = tmp4;
 
     return;
+}
+
+float MINOR(float m[16], int r0, int r1, int r2, int c0, int c1, int c2)
+{
+    return m[4*r0+c0] * (m[4*r1+c1] * m[4*r2+c2] - m[4*r2+c1] * m[4*r1+c2]) -
+           m[4*r0+c1] * (m[4*r1+c0] * m[4*r2+c2] - m[4*r2+c0] * m[4*r1+c2]) +
+           m[4*r0+c2] * (m[4*r1+c0] * m[4*r2+c1] - m[4*r2+c0] * m[4*r1+c1]);
+}
+
+
+void adjoint(float m[16], float adjOut[16])
+{
+    adjOut[ 0] =  MINOR(m,1,2,3,1,2,3); adjOut[ 1] = -MINOR(m,0,2,3,1,2,3); adjOut[ 2] =  MINOR(m,0,1,3,1,2,3); adjOut[ 3] = -MINOR(m,0,1,2,1,2,3);
+    adjOut[ 4] = -MINOR(m,1,2,3,0,2,3); adjOut[ 5] =  MINOR(m,0,2,3,0,2,3); adjOut[ 6] = -MINOR(m,0,1,3,0,2,3); adjOut[ 7] =  MINOR(m,0,1,2,0,2,3);
+    adjOut[ 8] =  MINOR(m,1,2,3,0,1,3); adjOut[ 9] = -MINOR(m,0,2,3,0,1,3); adjOut[10] =  MINOR(m,0,1,3,0,1,3); adjOut[11] = -MINOR(m,0,1,2,0,1,3);
+    adjOut[12] = -MINOR(m,1,2,3,0,1,2); adjOut[13] =  MINOR(m,0,2,3,0,1,2); adjOut[14] = -MINOR(m,0,1,3,0,1,2); adjOut[15] =  MINOR(m,0,1,2,0,1,2);
+}
+
+float det(float m[16])
+{
+    return m[0] * MINOR(m, 1, 2, 3, 1, 2, 3) -
+           m[1] * MINOR(m, 1, 2, 3, 0, 2, 3) +
+           m[2] * MINOR(m, 1, 2, 3, 0, 1, 3) -
+           m[3] * MINOR(m, 1, 2, 3, 0, 1, 2);
+}
+
+Mat Mat::getInverse()
+{
+    float invOut[16];
+    adjoint(m, invOut);
+
+    float inv_det = 1.0f / det(m);
+    for(int i = 0; i < 16; ++i)
+        invOut[i] = invOut[i] * inv_det;
+
+    Mat r = Mat(invOut);
+    return r;
 }
 
 // Returns x that solves A*x = b, when A and b are given.
@@ -858,7 +578,7 @@ Point::~Point()
         //getGlobal()->DPH->removePoint(this);
     }
 
-    if(coord != NULL)
+//    if(coord != NULL)
     {
         delete[] coord;
         coord = NULL;
@@ -868,12 +588,10 @@ Point::~Point()
 ostream& operator<<(ostream& o, const Point& pt)
 {
     o << "["  << setw(5) << pt.coord[0];
-
     for (int n = 1 ; n < pt.numel ; ++n)
     {
-        o << ", " << setw(5) << pt.coord[n];
+        o << " " << setw(5) << pt.coord[n];
     }
-
     o << "]";
 
     return o;
@@ -1001,6 +719,12 @@ Point Point::operator*(float a)
     }
     return out;
 }
+
+bool Point::operator==(const Point a)
+{
+    return (this->coord[0] == a.coord[0] && this->coord[1] == a.coord[1] && this->coord[2] == a.coord[2]);
+}
+
 float Point::dotProduct(const Point a)
 {
     float out = 0.0f;
@@ -1039,26 +763,7 @@ Point Point::crossProduct(const Point a)
     return tempPoint;
 }
 
-Point Point::normalize(Point a)
-{
-    float divider = 1.0f;
-
-    if(numel == 4)
-    {
-        divider = a[3];
-    }
-    else
-    {
-        divider = sqrt(a.coord[0]*a.coord[0]+a.coord[1]*a.coord[1]+a.coord[2]*a.coord[2]);
-    }
-
-    a.coord[0] = a.coord[0]/divider;
-    a.coord[1] = a.coord[1]/divider;
-    a.coord[2] = a.coord[2]/divider;
-    return a;
-}
-
-void Point::normalize()
+Point Point::normalize()
 {
     float divider = 1.0f;
 
@@ -1075,6 +780,8 @@ void Point::normalize()
     coord[0] = coord[0]/divider;
     coord[1] = coord[1]/divider;
     coord[2] = coord[2]/divider;
+
+    return *this;
 }
 
 
@@ -1118,6 +825,347 @@ Mat Point::matMult(const Point &a)
      }
 
      return res;
+}
+
+Point Point::rayTriangleIntersect(
+    const Point &origin,
+    const Point &ray,
+    const Face &face)
+{
+    Point v0 = Point(face.vertPos[0],face.vertPos[1],face.vertPos[2],face.vertPos[3]);
+    Point v1 = Point(face.vertPos[4],face.vertPos[5],face.vertPos[6],face.vertPos[7]);
+    Point v2 = Point(face.vertPos[8],face.vertPos[9],face.vertPos[10],face.vertPos[11]);
+    Point dir = Point(ray);
+    Point orig = Point(origin);
+    float kEpsilon = 0.00001f;
+
+    // compute plane's normal
+    Point v0v1 = v1 - v0;
+    Point v0v2 = v2 - v0;
+    // no need to normalize
+    Point N = v0v1.crossProduct(v0v2); // N
+//    float area2 = N.length();
+//    cout <<endl<<"v0: "<<v0<< endl;
+//    cout <<endl<<"v1: "<<v1<< endl;
+//    cout <<endl<<"v2: "<<v2<< endl;
+//    cout <<endl<<"v0v1: "<<v0v1<<", v0v2: "<<v0v2<< endl;
+
+    // Step 1: finding P
+
+    // check if ray and plane are parallel ?
+    float NdotRayDirection = N.dotProduct(dir);
+    if (fabs(NdotRayDirection) < kEpsilon) // almost 0
+        return false; // they are parallel so they don't intersect !
+
+    // compute d parameter using equation 2
+    float d = N.dotProduct(v0);
+//    cout <<"d: "<<d<< endl;
+
+    // compute t (equation 3)
+    float t = (N.dotProduct(orig) + d) / NdotRayDirection;
+//    cout <<"t: "<<t<< endl;
+    // check if the triangle is behind the ray
+    if (t < 0.0f) return Point(0,0,0); // the triangle is behind
+
+    // compute the intersection point using equation 1
+    Point P = orig + dir * t;
+//    cout <<"P: "<<P<< endl;
+
+    // Step 2: inside-outside test
+    Point C; // vector perpendicular to triangle's plane
+
+    // edge 0
+    Point edge0 = v1 - v0;
+    Point vp0 = P - v0;
+    C = edge0.crossProduct(vp0);
+    if (N.dotProduct(C) < 0.0f) return Point(0,0,0); // P is on the right side
+
+    // edge 1
+    Point edge1 = v2 - v1;
+    Point vp1 = P - v1;
+    C = edge1.crossProduct(vp1);
+    if (N.dotProduct(C) < 0.0f)  return Point(0,0,0); // P is on the right side
+
+    // edge 2
+    Point edge2 = v0 - v2;
+    Point vp2 = P - v2;
+    C = edge2.crossProduct(vp2);
+    if (N.dotProduct(C) < 0.0f) return Point(0,0,0); // P is on the right side;
+
+    //TEMP: Draw object on position P
+//    VectorUtils::drawIcon("../../img/target.tga", GL_RGBA, P); //GL_RGBA, P);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    return P; // this ray hits the triangle
+}
+
+namespace VectorUtils
+{
+    //Generate projection/camera matrix
+    void buildPerspProjMat(float *m, float fov, float aspect, float znear, float zfar)
+    {
+      float xymax = znear * tan(fov * PI/360.0f);
+      float ymin = -xymax;
+      float xmin = -xymax;
+
+      float width = xymax - xmin;
+      float height = xymax - ymin;
+
+      float depth = zfar - znear;
+      float C = -(zfar + znear) / depth;
+      float D = -2 * (zfar * znear) / depth;
+
+      float w = 2 * znear / width;
+      w = w / aspect;
+      float h = 2 * znear / height;
+
+      m[0]  = w; m[1]  = 0; m[2]  = 0;  m[3]  = 0;
+      m[4]  = 0; m[5]  = h; m[6]  = 0; m[7]  = 0;
+      m[8]  = 0; m[9]  = 0; m[10] = C; m[11] = D;
+      m[12] = 0; m[13] = 0; m[14] = -1; m[15] = 0;
+    }
+
+    //Generate 4x4 lookAt matrix
+    void cameraLookAt(float px, float py, float pz,
+        float lx, float ly, float lz,
+        float vx, float vy, float vz,
+        float *m)
+    {
+        //Create n = p - l, normal vector
+        float nx = px - lx;
+        float ny = py - ly;
+        float nz = pz - lz;
+        //Normalize n
+        float divide = sqrt(nx*nx + ny*ny + nz*nz);
+        nx = nx/divide;
+        ny = ny/divide;
+        nz = nz/divide;
+
+        //Create u = crossproduct(v,n), right vector
+        float ux = vy*nz - vz*ny;
+        float uy = vz*nx - vx*nz;
+        float uz = vx*ny - vy*nx;
+        //Normalize u
+        divide = sqrt(ux*ux + uy*uy + uz*uz);
+        ux = ux/divide;
+        uy = uy/divide;
+        uz = uz/divide;
+
+        //Create v = crossproduct(n,u), up vector
+        vx = ny*uz - nz*uy;
+        vy = nz*ux - nx*uz;
+        vz = nx*uy - ny*ux;
+
+        //Create u*p
+        float up = ux*px + uy*py + uz*pz;
+        //Create v*p
+        float vp = vx*px + vy*py + vz*pz;
+        //Create n*p
+        float np = nx*px + ny*py + nz*pz;
+
+        m[0] = ux; m[1] = uy; m[2] = uz; m[3] = -up;
+        m[4] = vx; m[5] = vy; m[6] = vz; m[7] = -vp;
+        m[8] = nx; m[9] = ny; m[10] = nz; m[11] = -np;
+        m[12] = 0.0f; m[13] = 0.0f; m[14] = 0.0f; m[15] = 1.0f;
+    }
+
+    int checkMouseClickOnModel(int x, int y, Mat projMat, Mat worldMat, unsigned int winX, unsigned int winY, vector<Model*> mdls, vector<int>* selMdls, const Point &camPos)
+    {
+        // http://antongerdelan.net/opengl/raycasting.html
+        // https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution
+        //Viewport->Normalised->Clip->Camera->World
+        cout  << endl << "Mouse position: " << Point(x,y) << endl;
+        //Ray in Normalised Device Coordinates: x=[-1,1], y=[-1,1]
+        float rayX = (2.0f * x) / winX - 1.0f;
+        float rayY = 1.0f - (2.0f * y) / winY;  //Reverse y-direction
+        float rayZ = -1.0f;                     //Ray pointing towards scene from screen
+        //Homogeneous Clip Coordinates
+        Point rayClip = Point(rayX,rayY,rayZ,1.0f);
+        cout << "Ray in Homogeneous Clip Coordinates: " << rayClip << endl;
+        //Camera Coordinates
+        Point rayCam = projMat.getInverse() * rayClip;
+        rayCam = Point(rayCam.coord[0],rayCam.coord[1],-1.0, 0.0);
+        cout << "Ray in Camera Coordinates: " << rayCam << endl;
+        //4D world coordinates
+        Point rayWorld = worldMat.getInverse() * rayCam;
+        rayWorld = Point(rayWorld.coord[0],rayWorld.coord[1],rayWorld.coord[2]);
+        rayWorld.normalize();
+        cout << "Ray in World Coordinates: " << rayWorld << endl;
+        cout << "Ray Origin: " << rayWorld << endl;
+
+        bool found = false;
+        Face* currentFace;
+
+        //For all models
+        //--------------
+        for(unsigned int i = 0; i < mdls.size(); i++) //i < 1; ++i) //
+        {
+            //If model is not supposed to be selectable then skip
+            if (!mdls[i]->selectable)
+                continue;
+
+//            Mat currentModelMatrix = *(mdls[i]->modelMatrix);
+//            cout << "ModelMatrix:" << endl;
+//            cout << currentModelMatrix;
+
+            Point zeroPoint = Point(0,0,0);
+            //For all faces
+            //-------------
+            vector<Face*>::iterator it = mdls[i]->faces.begin();
+            for (; it != mdls[i]->faces.end(); ++it)
+            {
+                currentFace = *it;
+                Point intersect = rayWorld.rayTriangleIntersect(camPos,
+                                                               rayWorld,
+                                                               *currentFace);
+                if (!(intersect == zeroPoint))
+                {
+                    cout << "Selected model "<<i<< ", on face "<<*currentFace<<". P="<<intersect<<endl;
+                    return i;
+                }
+            }
+        }
+        if(found == false)
+        {
+            selMdls->clear();
+            return -1;
+        }
+        return 0;
+    }
+
+    int createFBO(unsigned int w, unsigned int h, unsigned int rgbMode, unsigned char* textureArray, unsigned int* fboId, unsigned int* texId)
+    {
+        //Generate and bind FBO
+        glGenFramebuffers(1, fboId);
+        glBindFramebuffer(GL_FRAMEBUFFER, *fboId);
+
+        //Create and attach texture to it
+        glGenTextures(1, texId);
+        glBindTexture(GL_TEXTURE_2D, *texId);
+        textureArray = new unsigned char[WINDOWSIZEX*WINDOWSIZEY*4];
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexImage2D(GL_TEXTURE_2D, 0, rgbMode, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, textureArray);
+
+        GLuint glErr = glGetError();
+        if(glErr != 0)
+            cout << "GL texture creation error: " << glErr << endl;
+
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, *texId, 0);
+
+        //Detach FBO and texture
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        //GL error check
+        glErr = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if(glErr != 0)
+        {
+            cout << "FBO creation error: " << glErr << endl << endl;
+            return 1;
+        }
+        else
+        {
+            cout << "FBO creation OK" << endl;
+        }
+        return 0;
+    }
+
+    //void loadBG(string inString)
+    //{
+    //    unsigned int width, height;
+    //    TGALoader* TGALoad = new TGALoader();
+    //    unsigned char* texture = TGALoad->loadImage(inString.c_str(), &width, &height);
+    //    models.push_back(OH->loadObj("./models/cubeMapModel.obj"));
+
+    //    unsigned int textureId;
+    //    glGenTextures(1, &textureId);
+    //
+    //    //NVidia
+    //    //-----------
+    //    GLubyte Face[6][64][64][3];
+    //    glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
+    //    for (int i = 0; i < 6; i++)
+    //    {
+    //        glTexParameteri(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i , GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    //
+    //        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+    //        0,                  //level
+    //        GL_RGB8,            //internal format
+    //        64,                 //width
+    //        64,                 //height
+    //        0,                  //border
+    //        GL_RGB,             //format
+    //        GL_UNSIGNED_BYTE,   //type
+    //        &Face[i][0][0][0]); // pixel data
+    //    }
+    //
+    //    //-----------
+    //	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
+    //	glTexParameteri(GL_TEXTURE_CUBE_MAP_POSITIVE_X, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    //	glTexParameteri(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, texture);
+
+    //    delete TGALoad;
+    //}
+
+    void drawIcon(string textureFileName, int rgbMode, Point inPoint)
+    {
+    //    static bool textureLoaded = false;
+        static ObjHandler* OH = new ObjHandler();
+        static Model* BB = OH->loadObj("../../models/billboard.obj", false, rgbMode);
+
+        //Load and bind texture
+        unsigned int width, height;
+    //    if (textureLoaded == false)
+    //    {
+            BB->texture = TGALoader::loadImage(textureFileName.c_str(), &width, &height);
+    //        textureLoaded = true;
+    //    }
+
+        if (BB->textureId == 0)
+        {
+            cout << BB->textureId << endl;
+            glGenTextures(1, &BB->textureId);
+            cout << BB->textureId << endl;
+        }
+        glBindTexture(GL_TEXTURE_2D, BB->textureId);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexImage2D(GL_TEXTURE_2D, 0, rgbMode, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, BB->texture);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        //GL error check
+        GLuint glErr = glGetError();
+        if(glErr != 0)
+            cout << "GL error drawIcon: " << glErr << endl;
+
+        //Place in world, direction to camera
+        BB->modelMatrix->makeEye();
+        BB->modelMatrix->addScale(2.0);
+        BB->modelMatrix->rotateZ(PI/2.0);
+        BB->modelMatrix->rotateZ(cam->angleHorizontal);
+        BB->modelMatrix->rotateX(cam->angleVertical);
+        BB->modelMatrix->addTranslate(inPoint);
+        glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "modelToWorld"), 1, GL_TRUE, BB->modelMatrix->m);
+
+        //Draw billboard
+        glUniform1i(glGetUniformLocation(standardShaderProgram, "usePhong"), 0);
+        BB->draw();
+        glUniform1i(glGetUniformLocation(standardShaderProgram, "usePhong"), 1);
+
+        //Free memory
+    //    OH = NULL;
+    //    tga = NULL;
+    //    delete OH;
+    }
 }
 
 #endif

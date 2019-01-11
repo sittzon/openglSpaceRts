@@ -20,7 +20,7 @@ void InitHandler::SetupBkg()
     bkgModel = OH->loadObj(currentLevel["bkgobj"]);
     bkgModel->modelMatrix->makeScale(atof(currentLevel["bkgscale"].c_str()));
     bkgModel->modelMatrix->rotateX(PI*atof(currentLevel["bkgrotx"].c_str()));
-    bkgModel->selectable = false;//currentLevel["bkgselectable"];
+    bkgModel->selectable = (currentLevel["bkgselectable"] == "false")? false : true;
 }
 
 void InitHandler::SetupModels()

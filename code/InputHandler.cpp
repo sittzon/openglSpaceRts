@@ -75,7 +75,6 @@ void InputHandler::handleKeyboard(unsigned char key, int, int)
 void InputHandler::handleMouse(int button, int state, int c, int r)
 {
 	//int specialKey = glutGetModifiers();
-
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)// && (specialKey & GLUT_ACTIVE_ALT || specialKey & 0x0006))
     {
         mouseLeftDown = true;
@@ -86,7 +85,7 @@ void InputHandler::handleMouse(int button, int state, int c, int r)
 
         //Check if click is on some model
         selectedModels.clear();
-        int selected = VectorUtils::checkMouseClickOnModel(c, r, cam->projectionMatrix, cam->worldToViewMatrix, WINDOWSIZEX, WINDOWSIZEY, models, &selectedModels);
+        int selected = VectorUtils::checkMouseClickOnModel(c, r, cam->projectionMatrix, cam->worldToViewMatrix, WINDOWSIZEX, WINDOWSIZEY, models, &selectedModels, cam->pos);
 
         //If no model was selected
         if (selected == -1)
@@ -95,11 +94,13 @@ void InputHandler::handleMouse(int button, int state, int c, int r)
         //Is the model clicked on already selected previously?
         bool foundInList = false;
         for(unsigned int j = 0; j < selectedModels.size(); j++)
+        {
             if(selectedModels[j] == selected)
             {
                 foundInList = true;
                 return;
             }
+        }
         //If not selected previously, add to list
         if(foundInList == false)
             selectedModels.push_back(selected);
@@ -122,11 +123,11 @@ void InputHandler::handleMouse(int button, int state, int c, int r)
     }
     else if (button == 3 && state == GLUT_DOWN) //Scroll up
     {
-        cam->zoom(0.95f);
+        cam->zoom(0.8f);
     }
     else if (button == 4 && state == GLUT_DOWN) //Scroll down
     {
-        cam->zoom(1.05f);
+        cam->zoom(1.2f);
     }
     else if (state == GLUT_UP)
     {
@@ -172,9 +173,9 @@ void InputHandler::handleMotion(int c, int r)
 void InputHandler::handleScroll(int dir)
 {
     if (dir < 0)
-        cam->zoom(1.05f);
+        cam->zoom(1.2f);
     else
-        cam->zoom(0.95f);
+        cam->zoom(0.8f);
 }
 
  const vector<int>& InputHandler::getSelectedModels()

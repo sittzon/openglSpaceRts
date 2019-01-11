@@ -4,32 +4,18 @@
 #include <iostream>
 #include <math.h>
 #include "Model.h"
+//#include "Camera.h"
 
 class Model;
 
 //using namespace std;
-
-//Misc functions
-//--------------
-namespace VectorUtils
-{
-    void buildPerspProjMat(float *m, float fov, float aspect, float znear, float zfar);
-    void cameraLookAt(float px, float py, float pz,
-                float lx, float ly, float lz,
-                float vx, float vy, float vz,
-                float *m);
-    int checkMouseClickOnModel(int x, int y, Mat projMat, Mat worldMat, unsigned int winX, unsigned int winY, std::vector<Model*> mdls, std::vector<int>* selMdls);
-    //void loadBG(string inString);
-    void drawIcon(std::string textureFileName, int rgbMode, Point inPoint);
-    int createFBO(unsigned int w, unsigned int h, unsigned int rgbMode, unsigned char* textureArray, unsigned int* fboId, unsigned int* texId);
-}
-//--------------
 
 class Point;
 
 class Face
 {
     public:
+        friend std::ostream& operator<<(std::ostream& o, const Face &f);
         float vertPos[9];   //x,y,z for 3 vertices
         float normDir[9];   //x,y,z dir for 3 vertices
         float texPos[9];    //r,s,t for 3 vertices. All t is the same for 2d textures
@@ -40,6 +26,7 @@ class Mat
     public:
         Mat();
         Mat(const Mat &m2);
+        Mat(float m2[16]);
         ~Mat();
 
         Mat operator*(const Mat &m2);                               // This * 4x4 mat m2.
@@ -77,8 +64,10 @@ class Mat
 
         friend std::ostream& operator<<(std::ostream& o, const Mat& mat);       // For printing a matrix.
 
-        void switchRows(int r1, int r2);           //Switches the rows r1 and r2.
+        void switchRows(int r1, int r2);           // Switches the rows r1 and r2.
+        Mat getInverse();                          // Return the Inverse the matrix so A.inverse()*A=I
         Point gaussElimination(const Point &b);    // Returns x that solves A*x = b, when A and b are given.
+        Mat invertRowMajor();
 
         float* m;
 };
@@ -104,14 +93,17 @@ class Point
         Point operator-(float a);                           // This - scalar a.
         Point operator*(const Point a);                     // This .* vector a.
         Point operator*(float a);                           // This * scalar a.
+        bool operator==(const Point a);                    // This == Point a.
         float dotProduct(const Point a);                    // This dot a.
         Point crossProduct(const Point a, const Point b);   // a cross b.
         Point crossProduct(const Point a);                  // This cross a.
-        Point normalize(const Point a);                     // Normalize a.     (if numel != 4, length will be 1.0f if numel == 4, homogenous normalization.)
-        void normalize();                                   // Normalize this.  (if numel != 4, length will be 1.0f if numel == 4, homogenous normalization.)
+        Point normalize();                                   // Normalize this.  (if numel != 4, length will be 1.0f if numel == 4, homogenous normalization.)
         Point negate(const Point a);                              // Return negative of a (change a to -a).
         void negate();                                      // Negate this.
         void switchElements(int e1, int e2);
+        Point rayTriangleIntersect(const Point &origin,
+                                    const Point &ray,
+                                    const Face &face);      //Returns the non-zero point where triangle is hit, else Point(0,0,0)
 
         Mat matMult(const Point &a);                        // This * a' -> Mat(numel x numel);
 
@@ -121,5 +113,23 @@ class Point
         bool drawing;
         float* coord;       //x,y,z coordinates or u,v for texture coordinates
 };
+
+
+
+//Misc functions
+//--------------
+namespace VectorUtils
+{
+    void buildPerspProjMat(float *m, float fov, float aspect, float znear, float zfar);
+    void cameraLookAt(float px, float py, float pz,
+                float lx, float ly, float lz,
+                float vx, float vy, float vz,
+                float *m);
+    int checkMouseClickOnModel(int x, int y, Mat projMat, Mat worldMat, unsigned int winX, unsigned int winY, std::vector<Model*> mdls, std::vector<int>* selMdls, const Point &camPos);
+    //void loadBG(string inString);
+    void drawIcon(std::string textureFileName, int rgbMode, Point inPoint);
+    int createFBO(unsigned int w, unsigned int h, unsigned int rgbMode, unsigned char* textureArray, unsigned int* fboId, unsigned int* texId);
+}
+//--------------
 
 #endif // VECTORUTILS_H_INCLUDED

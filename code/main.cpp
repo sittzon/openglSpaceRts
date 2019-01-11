@@ -57,19 +57,11 @@ void init()
     glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "projection"), 1, GL_TRUE, cam->projectionMatrix.m);
 
     //Initial pos for models
-//    models[1]->modelMatrix->rotateZ(PI);
-//    models[1]->modelMatrix->rotateX(PI/2.0);
-    models[1]->modelMatrix->addTranslate(Point(-3.0, 0.0, 0.0));
     models[2]->modelMatrix->addTranslate(Point(3.0, 2.0, .0));
     models[0]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
     models[1]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
     models[2]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
     models[3]->loadBumpMap("../../models/Asteroid_1_bump.tga", GL_RGBA);
-//    models[3]->modelMatrix->addTranslate(Point(5.0, -2.0, .0));
-//    models[3]->modelMatrix->rotateZ(PI/2.0);
-//    models[3]->modelMatrix->rotateZ(cam->angleHorizontal);
-//    models[3]->modelMatrix->rotateX(cam->angleVertical);
-//    models[3]->modelMatrix->addTranslate(Point(5.0, -2.0, .0));
 
     //Set camera position
     cam->update();
@@ -101,6 +93,7 @@ void drawBufferObjects()
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+        // Draw "Select Object"
         for(unsigned int n = 0; n < IH->getSelectedModels().size(); n++)
         {
             if(IH->getSelectedModels()[n] == (int)i) //If model is selected
@@ -113,6 +106,8 @@ void drawBufferObjects()
         }
 
         //Change and upload modelMatrix
+
+        //[1] -> Fighter ship
         static float alpha = 0.0;
         models[1]->modelMatrix->makeRotationZ(PI);
         models[1]->modelMatrix->rotateX(PI/2.0);
@@ -121,6 +116,8 @@ void drawBufferObjects()
 
         if(i == 0)
         {
+
+            //[2] -> Asteroid
             models[2]->modelMatrix->rotateZ(PI/1080);
             models[2]->modelMatrix->rotateY(PI/720);
             for(unsigned int n = 0; n < 95; n++)
@@ -131,13 +128,14 @@ void drawBufferObjects()
                 models[2]->draw();
             }
 
+            //[3] -> Spacestation
             models[3]->modelMatrix->makeScale(0.5);
             models[3]->modelMatrix->rotateY(sin(alpha)/5.0);
             models[3]->modelMatrix->rotateX(PI/1.5);
             models[3]->modelMatrix->rotateY(-PI/3.0);
-            models[3]->modelMatrix->addTranslate(Point(5.0, -7.0, .0));
+            models[3]->modelMatrix->addTranslate(Point(5.0, -7.0, 0.0));
 
-            alpha += 0.002;
+            alpha += 0.002f;
         }
         glUniformMatrix4fv(glGetUniformLocation(standardShaderProgram, "modelToWorld"), 1, GL_TRUE, models[i]->modelMatrix->m);
 

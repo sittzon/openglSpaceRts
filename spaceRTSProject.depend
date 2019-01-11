@@ -9,7 +9,7 @@
 	<math.h>
 	"model.h"
 
-1473434920 
+1473434923 
 
 1387568292 c:\my dropbox\programmering\c++\spacertsproject\code\model.h
 	<glew.h>
@@ -40,8 +40,6 @@
 	<inttypes.h>
 	<OpenGL/glu.h>
 	<GL/glu.h>
-
-1473434923 
 
 1350314752 c:\my dropbox\programmering\c++\spacertsproject\include\freeglut.h
 	"freeglut_std.h"
@@ -1443,4 +1441,180 @@
 	"VectorUtils.h"
 	"Globals.h"
 	"TGALoader.h"
+
+1547131340 source:c:\users\stigsmag\openglspacerts\code\camera.cpp
+	"Camera.h"
+	"Globals.h"
+
+1478860186 c:\users\stigsmag\openglspacerts\code\camera.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	"VectorUtils.h"
+
+1478860204 c:\users\stigsmag\openglspacerts\include\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1478860200 c:\users\stigsmag\openglspacerts\include\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1478860200 c:\users\stigsmag\openglspacerts\include\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1478860200 c:\users\stigsmag\openglspacerts\include\freeglut_ext.h
+	<stdarg.h>
+
+1547217733 c:\users\stigsmag\openglspacerts\code\vectorutils.h
+	<iostream>
+	<math.h>
+	"Model.h"
+
+1478860190 c:\users\stigsmag\openglspacerts\code\model.h
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<string>
+	<vector>
+	"VectorUtils.h"
+	"ObjHandler.h"
+
+1478860190 c:\users\stigsmag\openglspacerts\code\objhandler.h
+	<iostream>
+	<vector>
+	<string>
+	"VectorUtils.h"
+	"Model.h"
+
+1478860186 c:\users\stigsmag\openglspacerts\code\globals.h
+	<iostream>
+	<vector>
+	"Camera.h"
+	"ObjHandler.h"
+	"InputHandler.h"
+	"ShaderManager.h"
+	"Model.h"
+	"TGALoader.h"
+	"OculusManager.h"
+
+1478860186 c:\users\stigsmag\openglspacerts\code\inputhandler.h
+	<iostream>
+	<vector>
+	"VectorUtils.h"
+
+1478860190 c:\users\stigsmag\openglspacerts\code\shadermanager.h
+	<string>
+	<cstdlib>
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1478860192 c:\users\stigsmag\openglspacerts\code\tgaloader.h
+	<iostream>
+	<string.h>
+	<fstream>
+
+1478860190 c:\users\stigsmag\openglspacerts\code\oculusmanager.h
+	<iostream>
+
+1478860186 source:c:\users\stigsmag\openglspacerts\code\globals.cpp
+	"Globals.h"
+
+1547198883 source:c:\users\stigsmag\openglspacerts\code\inithandler.cpp
+	"InitHandler.h"
+	"VectorUtils.h"
+	<sstream>
+
+1478860186 c:\users\stigsmag\openglspacerts\code\inithandler.h
+	"Globals.h"
+	<map>
+
+1547201721 source:c:\users\stigsmag\openglspacerts\code\inputhandler.cpp
+	"InputHandler.h"
+	"Globals.h"
+
+1478860186 source:c:\users\stigsmag\openglspacerts\code\loadimagedata.cpp
+	"loadImageData.h"
+	<iostream>
+	<fstream>
+
+1478860186 c:\users\stigsmag\openglspacerts\code\loadimagedata.h
+
+1547200883 source:c:\users\stigsmag\openglspacerts\code\main.cpp
+	<glew.h>
+	<freeglut.h>
+	<OpenGL/gl3.h>
+	<freeglut.h>
+	<freeglut.h>
+	<GL/gl.h>
+	<GL/glext.h>
+	<iostream>
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Globals.h"
+	"InitHandler.h"
+
+1478860190 source:c:\users\stigsmag\openglspacerts\code\model.cpp
+	"Model.h"
+	"TGALoader.h"
+
+1478860190 source:c:\users\stigsmag\openglspacerts\code\objhandler.cpp
+	<sstream>
+	"ObjHandler.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1478860190 source:c:\users\stigsmag\openglspacerts\code\oculusmanager.cpp
+	"OculusManager.h"
+
+1478860190 source:c:\users\stigsmag\openglspacerts\code\shadermanager.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string.h>
+	"ShaderManager.h"
+
+1478860192 source:c:\users\stigsmag\openglspacerts\code\tgaloader.cpp
+	"TGALoader.h"
+
+1547217727 source:c:\users\stigsmag\openglspacerts\code\vectorutils.cpp
+	<math.h>
+	<iostream>
+	<iomanip>
+	"VectorUtils.h"
+	"Globals.h"
+	"TGALoader.h"
+
+1547118222 source:c:\users\stigsmag\openglspacerts\code\vec4.cpp
+	"vec4.h"
+
+1547118624 c:\users\stigsmag\openglspacerts\code\vec4.h
+
+1547047472 source:c:\users\stigsmag\openglspacerts\code\triangle.cpp
+	"Triangle.h"
+
+1547047447 c:\users\stigsmag\openglspacerts\code\triangle.h
+	"vec4.h"
 

@@ -11,8 +11,8 @@ Camera::Camera()
     initPos             = Point(0.0f, 0.0f, -2.0f);
     initLookAt          = Point(0.0f, 0.0f, 0.0f);
 
-    initAngleHorizontal = (float)3.1415*2/3;
-    initAngleVertical   = (float)3.1415/4;
+    initAngleHorizontal = -3.1415-3.1415f*2.0f/3.0f;
+    initAngleVertical   = 3.1415f/4.0f;
     initRadius          = 10.0f;
 
     reset();
